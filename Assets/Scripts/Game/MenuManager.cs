@@ -6,15 +6,18 @@ public class MenuManager : Singleton<MenuManager>
 {
     [Header("UI References")]
     [SerializeField] private Button playButton;
-    [SerializeField] private ToggleGroup difficultyToggleGroup;
     [SerializeField] private Toggle[] difficultyToggles;
     [SerializeField] private string gameSceneName = "Game";
 
-    [Header("Settings")]
-    [SerializeField] private Difficulty selectedDifficulty = Difficulty.Easy;
     public enum Difficulty { Easy, Medium, Hard, Expert, Master }
 
-    readonly Vector2Int[] difficultyGridSizes = new Vector2Int[]
+    public static Difficulty SelectedDifficulty
+    {
+        get => GetDifficultyFromGrid(GameStateDto.GetGridSize());
+        set => GameStateDto.SetGridSize(difficultyGridSizes[(int)value].x, difficultyGridSizes[(int)value].y);
+    }
+
+    static readonly Vector2Int[] difficultyGridSizes = new Vector2Int[]
     {
         new(3, 3),   // Easy 
         new(4, 4),   // Medium 
@@ -35,8 +38,6 @@ public class MenuManager : Singleton<MenuManager>
         }
 
         LoadSelection();
-
-        UpdateSelectedGridSize();
     }
 
     protected override void OnDestroy()
@@ -54,36 +55,28 @@ public class MenuManager : Singleton<MenuManager>
 
     private void LoadSelection()
     {
-        Vector2Int previousGrid = GameStateDto.GetGridSize();
+        var savedGrid = GameStateDto.GetGridSize();
+        var savedDifficulty = GetDifficultyFromGrid(savedGrid);
 
-        // Check if the saved grid matches any of our difficulty presets
+        SelectedDifficulty = savedDifficulty;
+        difficultyToggles[(int)savedDifficulty].isOn = true;
+    }
+
+    private static Difficulty GetDifficultyFromGrid(Vector2Int grid)
+    {
         for (int i = 0; i < difficultyGridSizes.Length; i++)
         {
-            if (difficultyGridSizes[i] == previousGrid)
-            {
-                selectedDifficulty = (Difficulty)i;
-                difficultyToggles[i].isOn = true;
-                return;
-            }
+            if (difficultyGridSizes[i] == grid)
+                return (Difficulty)i;
         }
-
-        // If no match found, keep default selection
-        difficultyToggles[(int)selectedDifficulty].isOn = true;
+        return Difficulty.Easy;
     }
 
     private void OnDifficultyToggled(int difficultyIndex, bool isOn)
     {
-        if (isOn)
-        {
-            selectedDifficulty = (Difficulty)difficultyIndex;
-            UpdateSelectedGridSize();
-        }
-    }
+        if (!isOn) return;
 
-    private void UpdateSelectedGridSize()
-    {
-        Vector2Int grid = difficultyGridSizes[(int)selectedDifficulty];
-        GameStateDto.SetGridSize(grid.x, grid.y);
+        SelectedDifficulty = (Difficulty)difficultyIndex; 
     }
 
     private void OnPlayClicked()

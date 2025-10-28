@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 public class GameStateDto
 {
     public int score;
-    public List<int> matchedCardIds;
     public int rows, cols;
 
     public static int Rows { get; private set; }
@@ -39,23 +38,19 @@ public class GameManager : Singleton<GameManager>
     readonly List<CardModel> flippedCards = new();
     readonly Dictionary<int, CardModel> allCards = new();
 
-    void Start()
-    {
-        StartNewGame(GameStateDto.Rows, GameStateDto.Columns);
-    }
+    void Start() => StartNewGame(GameStateDto.Rows, GameStateDto.Columns);
 
     public void ReturnToMenu() => SceneManager.LoadScene(0);
     
     public void StartNewGame(int r, int c)
     {
         StopAllCoroutines();
-
         gridController.SetupGrid(c, r);
 
         int totalCards = r * c;
         int pairCount = totalCards / 2;
-
         var sprites = cardFactory.GetAvailableFronts();
+
         if (pairCount > sprites.Length)
         {
             Debug.LogWarning($"Not enough unique sprites! Needed {pairCount}, but only have {sprites.Length}. Reusing some.");
@@ -76,7 +71,6 @@ public class GameManager : Singleton<GameManager>
 
         // Shuffle paired cards
         ids = ids.OrderBy(_ => Random.value).ToList();
-
         allCards.Clear();
 
         // Spawn paired cards
@@ -91,9 +85,7 @@ public class GameManager : Singleton<GameManager>
             cardObjects.Add(card);
         }
 
-        // Populate the grid
         gridController.Populate(cardObjects);
-
         ScoreManager.Instance.Clear();
 
         // Handle odd grid case: create unmatched card
@@ -107,11 +99,8 @@ public class GameManager : Singleton<GameManager>
             // Insert in middle of hierarchy (so it's visually in the center)
             int middleIndex = gridController.transform.childCount / 2;
             unmatchedCard.transform.SetSiblingIndex(middleIndex);
-
-            Debug.Log("Added extra unmatched card in the middle of the grid (hidden).");
         }
 
-        // Start preview
         StartCoroutine(PreviewCards(cardObjects));
 
         Debug.Log($"New Game Started: {r}x{c}, Total Cards: {cardObjects.Count}, Pairs: {pairCount}");
@@ -133,7 +122,6 @@ public class GameManager : Singleton<GameManager>
         if (flippedCards.Contains(card) || card.IsMatched) return;
 
         flippedCards.Add(card);
-
         AudioManager.Instance?.PlayFlip();
 
         // allow continuous flips — but evaluate matches whenever there are 2 or more un-evaluated flips
@@ -150,8 +138,7 @@ public class GameManager : Singleton<GameManager>
         var processing = flippedCards.Take(2).ToList();
 
         // remove them from the main list so player can keep flipping other cards
-        flippedCards.RemoveAt(0);
-        flippedCards.RemoveAt(0);
+        flippedCards.RemoveRange(0, 2);
 
         var a = processing[0];
         var b = processing[1];
@@ -162,7 +149,6 @@ public class GameManager : Singleton<GameManager>
             b.SetMatched();
 
             AudioManager.Instance?.PlayMatch();
-
             ScoreManager.Instance.IncrementScore();
         }
         else
@@ -173,13 +159,32 @@ public class GameManager : Singleton<GameManager>
             AudioManager.Instance?.PlayMismatch();
         }
 
-        // check for game over (all matched)
+        // check for level complete (all cards matched)
         if (allCards.Values.All(x => x.IsMatched))
         {
-            AudioManager.Instance?.PlayGameOver();
-
-            SaveGame();
+            IncrementDifficulty();
         }
+    }
+
+    private void IncrementDifficulty()
+    {
+        var currentDifficulty = MenuManager.SelectedDifficulty; 
+        var difficulties = System.Enum.GetValues(typeof(MenuManager.Difficulty));
+        int nextIndex = ((int)currentDifficulty + 1) % difficulties.Length;
+        var nextDifficulty = (MenuManager.Difficulty)difficulties.GetValue(nextIndex);
+
+        MenuManager.SelectedDifficulty = nextDifficulty;
+        SaveGame();
+
+        // Return to menu if game over
+        if (nextDifficulty == MenuManager.Difficulty.Easy)
+        { 
+            AudioManager.Instance?.PlayGameOver();
+            SceneManager.LoadScene(0);
+            return;
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void SaveGame()
@@ -187,7 +192,6 @@ public class GameManager : Singleton<GameManager>
         var dto = new GameStateDto
         {
             score = ScoreManager.Instance.Score,
-            matchedCardIds = allCards.Values.Where(x => x.IsMatched).Select(x => x.CardId).ToList(),
             rows = GameStateDto.Rows,
             cols = GameStateDto.Columns
         };

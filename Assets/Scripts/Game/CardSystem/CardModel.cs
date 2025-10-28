@@ -74,13 +74,8 @@ public class CardModel : MonoBehaviour
 
     private void ResizeCardContent()
     {
-        // Stretch to full parent
-        var frontRect = frontBG.transform as RectTransform;
-        frontRect.anchorMin = Vector2.zero;
-        frontRect.anchorMax = Vector2.one;
-        frontRect.offsetMin = Vector2.zero;
-        frontRect.offsetMax = Vector2.zero;
-        frontBG.transform.localScale = Vector3.one;
+        frontBG.transform.StretchToParent();
+        frontImage.transform.StretchToParent();
     }
 
     #endregion
