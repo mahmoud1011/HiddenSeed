@@ -131,8 +131,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 205698515}
-  - component: {fileID: 205698516}
   - component: {fileID: 205698517}
+  - component: {fileID: 205698516}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -155,10 +155,10 @@ RectTransform:
   m_Father: {fileID: 579440825}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5925, y: 0.5}
-  m_AnchorMax: {x: 0.593, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 148.99146, y: 0}
+  m_SizeDelta: {x: 1440.06, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &205698516
 MonoBehaviour:
@@ -193,11 +193,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 205698514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fc7a5b427ff8cb4bb71694625961e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 1
+  gridLayout: {fileID: 205698516}
+  outerPaddingPercent: 0.05
+  spacingRatio: 0.5
 --- !u!1 &471817765
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +425,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &599915088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 599915090}
+  - component: {fileID: 599915089}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &599915089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599915088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0de000b1d6df6b468e0d7f06fa51253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridController: {fileID: 205698517}
+  cardFactory: {fileID: 11400000, guid: d043bb504b3acfa4da26248db1d59fae, type: 2}
+  previewTime: 2
+  rows: 3
+  cols: 3
+--- !u!4 &599915090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599915088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 848.15717, y: 550.6576, z: -6.8156953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638826210
 GameObject:
   m_ObjectHideFlags: 0

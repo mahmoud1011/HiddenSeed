@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dadf8a678da9907408fe128a8f8e56f8, type: 3}
+  m_Name: FruitsCards
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 5425460043583933975, guid: 07feaab2082dc0641b4261a213197b2f, type: 3}
+  availableFronts:
+  - {fileID: 21300000, guid: 7a1e5e2e66c258e4ba8aa6a4e2e844a2, type: 3}
+  - {fileID: 21300000, guid: b3f9c766bf49739419081387d29b2ffd, type: 3}
+  - {fileID: 21300000, guid: c5e04b482faee4740997775198e94f92, type: 3}
+  - {fileID: 21300000, guid: 2b2da2a0b932cef4588288c123f50606, type: 3}
+  - {fileID: 21300000, guid: 421387f0fbc21c94c8ed20e872312fd5, type: 3}
+  - {fileID: 21300000, guid: 6797bd4ad89ad2f49ab3a569e458b321, type: 3}
+  - {fileID: 21300000, guid: 71f45345518b14d42a80cf85f4260747, type: 3}
+  - {fileID: 21300000, guid: 7eb2c314b0b7d754e98655baaa14f2ba, type: 3}
+  - {fileID: 21300000, guid: 31d7168cf7f9d0d47bcef08fda42e6a8, type: 3}
+  - {fileID: 21300000, guid: 5d71c837208c7c04c9006fad7dee8e4c, type: 3}
+  - {fileID: 21300000, guid: 7b1b69d09ffaf5b4abf638d5950369b2, type: 3}
+  - {fileID: 21300000, guid: 004dee025b0314d4a864ac960731412f, type: 3}
+  - {fileID: 21300000, guid: a166d63dfec28c54894c8da472292cd6, type: 3}
+  - {fileID: 21300000, guid: 9c7b5e22e4a083e4c852b7df2c1e8125, type: 3}
+  - {fileID: 21300000, guid: 88dbcc6c47d21ca4d9deb72d3ce114f6, type: 3}
+  - {fileID: 21300000, guid: d08cc3447b76f0b4cb3f8b703293342a, type: 3}
+  - {fileID: 21300000, guid: 6c5b5791105eb0c44be0800253be902c, type: 3}
+  - {fileID: 21300000, guid: 41435e50b30283146a5c5037825acdf1, type: 3}
+  - {fileID: 21300000, guid: de604e056b9b6354a821452a51f824a6, type: 3}
+  - {fileID: 21300000, guid: 224593173f7bd4d468fc7a741deaec97, type: 3}
+  - {fileID: 21300000, guid: 9d537ea21b2f9834d9b45226b819d125, type: 3}
+  - {fileID: 21300000, guid: 3a9b10aa741f2624cb75c09b8cdc6933, type: 3}
+  - {fileID: 21300000, guid: 54f3058d59514514fb663049c4283a93, type: 3}
+  - {fileID: 21300000, guid: efa77f0ab066c824685c0568ee024a61, type: 3}
+  - {fileID: 21300000, guid: d6dde172581ca1c4a992a35b65d7d6af, type: 3}
+  - {fileID: 21300000, guid: 18378c13fd390d343a5128cb3dcc8767, type: 3}
+  - {fileID: 21300000, guid: 426b59f0b5be6fa47878c3713728ac72, type: 3}
+  - {fileID: 21300000, guid: dbe914a01a8b5e14780fb233b0e0f41d, type: 3}
+  - {fileID: 21300000, guid: 05dbb7e25f090484a8361cc82db30aef, type: 3}
+  - {fileID: 21300000, guid: ae9486ad7be0dfc42b74933a93cc1c41, type: 3}
+  - {fileID: 21300000, guid: b5fa12ff6aef0da4eb3ac5f5fcd0eeb2, type: 3}
+  - {fileID: 21300000, guid: e4b0959c290a48a43bfe79b667dbb019, type: 3}
+  - {fileID: 21300000, guid: a411b9aad4743f8449c7c0dbb420c9ab, type: 3}
+  - {fileID: 21300000, guid: c9ca38addbbd08b4c92914e5c79861df, type: 3}
+  - {fileID: 21300000, guid: 2d089a39ca948d34c948782a7299105f, type: 3}
+  - {fileID: 21300000, guid: 935b88f21add2f848be96e58e1e0dd81, type: 3}
+  - {fileID: 21300000, guid: 8d93b5d324a709347a5819f9ee8b49d4, type: 3}
+  - {fileID: 21300000, guid: 10abe1f60c87ece48957c9cce769da7a, type: 3}
+  - {fileID: 21300000, guid: 66460c6937fd583428c091103de9d718, type: 3}
+  - {fileID: 21300000, guid: 842339e7605097b4a8ad507234ff4b04, type: 3}
