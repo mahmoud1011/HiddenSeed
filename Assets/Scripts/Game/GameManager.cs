@@ -34,6 +34,8 @@ public class GameManager : Singleton<GameManager>
     [Tooltip("Seconds to show all cards at start.")]
     [SerializeField] float previewTime = 2f;
 
+    readonly ISaveService saveService = new PlayerPrefsSaveService();
+
     readonly List<CardModel> flippedCards = new();
     readonly Dictionary<int, CardModel> allCards = new();
 
@@ -190,6 +192,6 @@ public class GameManager : Singleton<GameManager>
             cols = GameStateDto.Columns
         };
         
-        // TODO:: Save game
+        saveService.Save(dto);
     }
 }
