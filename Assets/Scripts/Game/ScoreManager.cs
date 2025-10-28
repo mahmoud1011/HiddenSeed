@@ -3,10 +3,27 @@ using UnityEngine;
 
 public class ScoreManager : Singleton<ScoreManager>
 {
-    [SerializeField] TextMeshProUGUI scoreText, turnsText;
+    [SerializeField] TextMeshProUGUI scoreText, turnsText, comboText;
 
     public int Score { get; private set; }
     public int Turns { get; private set; }
+
+    void Start()
+    {
+        ComboManager.Instance.OnComboUpdated += OnComboUpdated;
+        ComboManager.Instance.OnComboReset += OnComboReset;
+    }
+
+    protected override void OnDestroy()
+    {
+        if (ComboManager.Instance)
+        {
+            ComboManager.Instance.OnComboUpdated -= OnComboUpdated;
+            ComboManager.Instance.OnComboReset -= OnComboReset;
+        }
+        
+        base.OnDestroy();
+    }
 
     #region Public 
 
@@ -32,7 +49,9 @@ public class ScoreManager : Singleton<ScoreManager>
     #endregion
 
     #region Private 
-
+    private void OnComboUpdated(int combo) => comboText.text = $"Combo x{combo}";
+    private void OnComboReset() => comboText.text = string.Empty;
+    
     private void UpdateScoreUI() => scoreText.text = $"Matches {Score}";
     private void UpdateTurnsUI() => turnsText.text = $"Turns {Turns}";
     private void UpdateUI()

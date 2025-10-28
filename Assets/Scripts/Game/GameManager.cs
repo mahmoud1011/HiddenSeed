@@ -149,6 +149,8 @@ public class GameManager : Singleton<GameManager>
             b.SetMatched();
 
             AudioManager.Instance?.PlayMatch();
+            ComboManager.Instance.RegisterMatch();
+
             ScoreManager.Instance.IncrementScore();
         }
         else
@@ -156,6 +158,7 @@ public class GameManager : Singleton<GameManager>
             a.FlipToBack(0.6f);
             b.FlipToBack(0.6f);
 
+            ComboManager.Instance.ResetCombo();
             AudioManager.Instance?.PlayMismatch();
         }
 
