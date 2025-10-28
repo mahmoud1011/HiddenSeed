@@ -120,7 +120,7 @@ public class GameManager : Singleton<GameManager>
 
         flippedCards.Add(card);
 
-        // TODO:: Play flip audio
+        AudioManager.Instance?.PlayFlip();
 
         // allow continuous flips — but evaluate matches whenever there are 2 or more un-evaluated flips
         if (flippedCards.Count >= 2)
@@ -147,7 +147,7 @@ public class GameManager : Singleton<GameManager>
             a.SetMatched();
             b.SetMatched();
 
-            // TODO:: play match audio
+            AudioManager.Instance?.PlayMatch();
 
             ScoreManager.Instance.IncrementScore();
         }
@@ -156,13 +156,13 @@ public class GameManager : Singleton<GameManager>
             a.FlipToBack(0.6f);
             b.FlipToBack(0.6f);
 
-            // TODO:: Play audo mismatch
+            AudioManager.Instance?.PlayMismatch();
         }
 
         // check for game over (all matched)
         if (allCards.Values.All(x => x.IsMatched))
         {
-            // TODO:: Play game over
+            AudioManager.Instance?.PlayGameOver();
 
             SaveGame();
         }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cb54be8922d88c946a62cd1557a321bc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - clipFlip: {fileID: 8300000, guid: 4bb4fa8a3b5c00341bdc3f8eb3ed6f87, type: 3}
+  - clipMatch: {fileID: 8300000, guid: 508457c4ca24cf84e97dd2ddfd56292f, type: 3}
+  - clipMismatch: {fileID: 8300000, guid: f8f165c8359f721459b8845f872505f2, type: 3}
+  - clipGameOver: {fileID: 8300000, guid: 29db9e5cd3f73b04ca1e053ac72b1fc9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
