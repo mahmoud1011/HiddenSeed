@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 [System.Serializable]
@@ -10,6 +11,17 @@ public class GameStateDto
     public int score;
     public List<int> matchedCardIds;
     public int rows, cols;
+
+    public static int Rows { get; private set; }
+    public static int Columns { get; private set; }
+
+    public static void SetGridSize(int rows, int columns)
+    {
+        Rows = rows;
+        Columns = columns;
+    }
+
+    public static Vector2Int GetGridSize() => new(Rows, Columns);
 }
 
 public class GameManager : Singleton<GameManager>
@@ -22,23 +34,23 @@ public class GameManager : Singleton<GameManager>
     [Tooltip("Seconds to show all cards at start.")]
     [SerializeField] float previewTime = 2f;
 
-    [SerializeField] private int rows = 4;
-    [SerializeField] private int cols = 4;
-
     readonly List<CardModel> flippedCards = new();
     readonly Dictionary<int, CardModel> allCards = new();
 
-    void Start() => StartNewGame(rows, cols);
+    void Start()
+    {
+        StartNewGame(GameStateDto.Rows, GameStateDto.Columns);
+    }
 
+    public void ReturnToMenu() => SceneManager.LoadScene(0);
+    
     public void StartNewGame(int r, int c)
     {
-        rows = r;
-        cols = c;
         StopAllCoroutines();
 
-        gridController.SetupGrid(cols, rows);
+        gridController.SetupGrid(c, r);
 
-        int totalCards = rows * cols;
+        int totalCards = r * c;
         int pairCount = totalCards / 2;
 
         var sprites = cardFactory.GetAvailableFronts();
@@ -100,7 +112,7 @@ public class GameManager : Singleton<GameManager>
         // Start preview
         StartCoroutine(PreviewCards(cardObjects));
 
-        Debug.Log($"New Game Started: {rows}x{cols}, Total Cards: {cardObjects.Count}, Pairs: {pairCount}");
+        Debug.Log($"New Game Started: {r}x{c}, Total Cards: {cardObjects.Count}, Pairs: {pairCount}");
     }
 
     private IEnumerator PreviewCards(List<CardModel> cards)
@@ -174,8 +186,8 @@ public class GameManager : Singleton<GameManager>
         {
             score = ScoreManager.Instance.Score,
             matchedCardIds = allCards.Values.Where(x => x.IsMatched).Select(x => x.CardId).ToList(),
-            rows = rows,
-            cols = cols
+            rows = GameStateDto.Rows,
+            cols = GameStateDto.Columns
         };
         
         // TODO:: Save game
