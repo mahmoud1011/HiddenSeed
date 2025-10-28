@@ -27,6 +27,9 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode/
+.vsconfig
+.idea/
 
 # Gradle cache directory
 .gradle/
@@ -73,3 +76,15 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# JetBrains Rider
+*.sln.iml
+
+# Visual Studio Code
+!.vscode/extensions.json
